@@ -1018,8 +1018,10 @@ fb_actions.close_dir = function(prompt_bufnr)
   end
 
   local entry = action_state.get_selected_entry()
+  fb_utils.notify("actions.close_dir", { msg = string.format("entry: %s", entry), level = "WARN", quiet = false })
   if not entry.is_dir then
     local entry = { value = fb_utils.get_parent(entry) }
+    fb_utils.notify("actions.close_dir", { msg = string.format("new entry: %s", entry), level = "WARN", quiet = false })
     -- return
   end
 
