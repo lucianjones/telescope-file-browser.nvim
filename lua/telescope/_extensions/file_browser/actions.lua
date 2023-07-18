@@ -1056,9 +1056,8 @@ fb_actions.close_dir = function(prompt_bufnr)
   --   table.remove(trees, indices[i])
   -- end
 
-  finder.path = entry.value
   fb_utils.selection_callback(current_picker, entry.value)
-  current_picker:refresh(finder, { reset_prompt = false, multi = current_picker._multi })
+  current_picker:refresh(finder, { reset_prompt = true, multi = current_picker._multi })
 end
 
 --- Increases the folder search depth of the |telescope-file-browser.picker.file_browser|.
