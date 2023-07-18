@@ -1058,8 +1058,8 @@ fb_actions.close_dir = function(prompt_bufnr)
   --   table.remove(trees, indices[i])
   -- end
 
-  fb_utils.notify("actions.close_dir", { msg = string.format("current_picker: %s", dump(current_picker._completion_callbacks)), level = "WARN", quiet = false })
   fb_utils.selection_callback(current_picker, entry.value)
+  fb_utils.notify("actions.close_dir", { msg = string.format("current_picker: %s", dump(current_picker._completion_callbacks)), level = "WARN", quiet = false })
   current_picker:refresh(finder, { reset_prompt = false, multi = current_picker._multi })
 end
 
