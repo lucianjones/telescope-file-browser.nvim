@@ -1011,7 +1011,7 @@ function dump(o)
       local s = '{ '
       for k,v in pairs(o) do
          if type(k) ~= 'number' then k = '"'..k..'"' end
-         s = s .. '['..k..'] = ' .. dump(v) .. ','
+         s = s .. '['..k..'] = "' .. dump(v) .. '",'
       end
       return s .. '} '
    else
@@ -1031,14 +1031,14 @@ fb_actions.close_dir = function(prompt_bufnr)
   end
 
   local entry = action_state.get_selected_entry()
-  fb_utils.notify("actions.close_dir", { msg = string.format("entry1: %s", dump(entry)), level = "WARN", quiet = false })
+  fb_utils.notify("actions.close_dir", { msg = string.format("entry1: %s", entry.value), level = "WARN", quiet = false })
   if not entry.is_dir then
     entry.value = entry.value:match("(.*[/\\])")
-    fb_utils.notify("actions.close_dir", { msg = string.format("entry2: %s", dump(entry)), level = "WARN", quiet = false })
+    fb_utils.notify("actions.close_dir", { msg = string.format("entry2: %s", entry.value), level = "WARN", quiet = false })
     -- return
   end
 
-  -- fb_utils.notify("actions.close_dir", { msg = string.format("finder: %s", dump(finder)), level = "WARN", quiet = false })
+  fb_utils.notify("actions.close_dir", { msg = string.format("finder: %s", dump(finder)), level = "WARN", quiet = false })
 
   local closed_dirs = finder.__tree_closed_dirs
   local path_len = #entry.value
