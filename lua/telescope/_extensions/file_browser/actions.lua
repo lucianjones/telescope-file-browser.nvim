@@ -1019,9 +1019,8 @@ fb_actions.close_dir = function(prompt_bufnr)
 
   local entry
   if action_state.get_selected_entry().is_dir then
-    entry = fb_utils.get_parent(action_state.get_selected_entry())
-    -- entry = action_state.get_selected_entry()
-    fb_utils.notify("actions.close_dir", { msg = string.format("entry1: %s", unpack(entry)), level = "WARN", quiet = false })
+    entry = action_state.get_selected_entry()
+    fb_utils.notify("actions.close_dir", { msg = string.format("entry1: %s", entry.value), level = "WARN", quiet = false })
   else
     entry = fb_utils.get_parent(action_state.get_selected_entry())
     fb_utils.notify("actions.close_dir", { msg = string.format("entry2: %s", unpack(entry)), level = "WARN", quiet = false })
