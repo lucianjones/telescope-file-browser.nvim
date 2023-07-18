@@ -1017,16 +1017,15 @@ fb_actions.close_dir = function(prompt_bufnr)
     return
   end
 
-  local entry
-  if action_state.get_selected_entry().is_dir then
-    entry = action_state.get_selected_entry()
-    fb_utils.notify("actions.close_dir", { msg = string.format("entry1: %s", entry.value), level = "WARN", quiet = false })
-  else
-    entry = action_state.get_selected_entry()
+  local entry = action_state.get_selected_entry()
+  fb_utils.notify("actions.close_dir", { msg = string.format("entry1: %s", entry.value), level = "WARN", quiet = false })
+  if not entry.is_dir then
     entry.value = entry.value:match("(.*[/\\])")
     fb_utils.notify("actions.close_dir", { msg = string.format("entry2: %s", entry.value), level = "WARN", quiet = false })
     -- return
   end
+
+  fb_utils.notify("actions.close_dir", { msg = string.format("finder: %s", unpack(finder)), level = "WARN", quiet = false })
 
   local closed_dirs = finder.__tree_closed_dirs
   local path_len = #entry.value
