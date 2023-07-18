@@ -899,7 +899,7 @@ fb_actions.expand_dir = function(prompt_bufnr, opts)
   opts = opts or {}
   local entry = action_state.get_selected_entry()
   if not entry.is_dir then
-    actions.select_default
+    actions.select_default()
     return
   end
 
