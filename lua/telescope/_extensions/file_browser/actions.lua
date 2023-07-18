@@ -1020,7 +1020,7 @@ fb_actions.close_dir = function(prompt_bufnr)
   local entry = action_state.get_selected_entry()
   if not entry.is_dir then
     local entry = { value = fb_utils.get_parent(entry) }
-    return
+    -- return
   end
 
   local closed_dirs = finder.__tree_closed_dirs
