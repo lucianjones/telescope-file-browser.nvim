@@ -1031,11 +1031,9 @@ fb_actions.close_dir = function(prompt_bufnr)
   end
 
   local entry = action_state.get_selected_entry()
-  fb_utils.notify("actions.close_dir", { msg = string.format("entry1: %s", entry.value), level = "WARN", quiet = false })
+
   if not entry.is_dir then
     entry.value = entry.value:match("(.*[/\\])")
-    fb_utils.notify("actions.close_dir", { msg = string.format("entry2: %s", entry.value), level = "WARN", quiet = false })
-    -- return
   end
 
 
@@ -1058,8 +1056,8 @@ fb_actions.close_dir = function(prompt_bufnr)
   --   table.remove(trees, indices[i])
   -- end
 
+  finder.path = entry.value
   fb_utils.selection_callback(current_picker, entry.value)
-  fb_utils.notify("actions.close_dir", { msg = string.format("current_picker: %s", dump(current_picker._completion_callbacks)), level = "WARN", quiet = false })
   current_picker:refresh(finder, { reset_prompt = false, multi = current_picker._multi })
 end
 
