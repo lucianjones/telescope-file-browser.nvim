@@ -1006,6 +1006,19 @@ fb_actions.toggle_dir = function(prompt_bufnr)
   end
 end
 
+function dump(o)
+   if type(o) == 'table' then
+      local s = '{ '
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. '['..k..'] = ' .. dump(v) .. ','
+      end
+      return s .. '} '
+   else
+      return tostring(o)
+   end
+end
+
 --- Closes currently selected dir in tree-mode of |telescope-file-browser.picker.file_browser|.
 --- @param prompt_bufnr number: The prompt bufnr
 fb_actions.close_dir = function(prompt_bufnr)
@@ -1025,7 +1038,7 @@ fb_actions.close_dir = function(prompt_bufnr)
     -- return
   end
 
-  fb_utils.notify("actions.close_dir", { msg = string.format("finder: %s", unpack(finder)), level = "WARN", quiet = false })
+  fb_utils.notify("actions.close_dir", { msg = string.format("finder: %s", dump(finder)), level = "WARN", quiet = false })
 
   local closed_dirs = finder.__tree_closed_dirs
   local path_len = #entry.value
