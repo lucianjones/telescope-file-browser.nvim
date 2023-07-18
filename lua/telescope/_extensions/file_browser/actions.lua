@@ -1031,21 +1031,24 @@ fb_actions.close_dir = function(prompt_bufnr)
   end
 
   local entry = action_state.get_selected_entry()
+  local path
 
-  if not entry.is_dir then
-    entry.value = entry.value:match("(.*[/\\])")
+  if entry.is_dir then
+      path = entry.value
+  else
+      path = entry.value:match("(.*[/\\])")
   end
 
 
   local closed_dirs = finder.__tree_closed_dirs
-  local path_len = #entry.value
-  closed_dirs[entry.value] = true
+  local path_len = #path
+  closed_dirs[path] = true
   local indices = {}
   local trees = finder.__trees
   -- add all children directories of directory in results
   for _, e in ipairs(finder.results) do
     if e.is_dir then
-      if e.value:sub(1, path_len) == entry.value then
+      if e.value:sub(1, path_len) == path then
         closed_dirs[e.value] = true
         fb_utils.path_from_tree(trees, e.value)
       end
@@ -1056,8 +1059,8 @@ fb_actions.close_dir = function(prompt_bufnr)
   --   table.remove(trees, indices[i])
   -- end
 
-  fb_utils.selection_callback(current_picker, entry.value)
-  current_picker:refresh(finder, { reset_prompt = true, multi = current_picker._multi })
+  fb_utils.selection_callback(current_picker, path)
+  current_picker:refresh(finder, { reset_prompt = false, multi = current_picker._multi })
 end
 
 --- Increases the folder search depth of the |telescope-file-browser.picker.file_browser|.
