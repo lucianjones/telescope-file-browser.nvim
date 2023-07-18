@@ -1011,7 +1011,7 @@ function dump(o)
       local s = '{ '
       for k,v in pairs(o) do
          if type(k) ~= 'number' then k = '"'..k..'"' end
-         s = s .. '['..k..'] = "' .. dump(v) .. '",'
+         s = s .. '['..k..'] = ' .. dump(v) .. ','
       end
       return s .. '} '
    else
@@ -1038,7 +1038,6 @@ fb_actions.close_dir = function(prompt_bufnr)
     -- return
   end
 
-  fb_utils.notify("actions.close_dir", { msg = string.format("finder: %s", dump(finder)), level = "WARN", quiet = false })
 
   local closed_dirs = finder.__tree_closed_dirs
   local path_len = #entry.value
@@ -1059,6 +1058,7 @@ fb_actions.close_dir = function(prompt_bufnr)
   --   table.remove(trees, indices[i])
   -- end
 
+  fb_utils.notify("actions.close_dir", { msg = string.format("current_picker: %s", dump(current_picker)), level = "WARN", quiet = false })
   fb_utils.selection_callback(current_picker, entry.value)
   current_picker:refresh(finder, { reset_prompt = false, multi = current_picker._multi })
 end
